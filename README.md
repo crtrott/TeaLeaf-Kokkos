@@ -5,9 +5,9 @@
 This implementation has been configured with default values to simply compile with `make`.
 
 The `TARGET` flag specifies which device will be targetted by the executable:
-* OMP - CPU using OpenMP
-* CUDA - NVIDIA GPU using CUDA
-* MIC - Intel Xeon Phi using native compilation
+* `OMP` - CPU using OpenMP
+* `CUDA` - NVIDIA GPU using CUDA
+* `MIC` - Intel Xeon Phi using native compilation
 This is currently defaulted to use OpenMP.
 
 The `COMPILER` flag specifies which compiler suite to use, where both Intel and GNU compilers have been tested with this TeaLeaf implementation. This is currently defaulted to use the Intel compilers.
@@ -19,8 +19,8 @@ The `KOKKOS_PATH` flag points to the root of the Kokkos source directory.
 If compiling for CUDA, please note that there is a wrapper called `nvcc_wrapper` which lives inside kokkos/config/, and the `default_compiler` option must be changed to a valid C++ compiler. The current default for this compiler is `icpc`.
 
 There are two optional defines that were used for testing and can be passed to the `OPTIONS` flag in the Makefile:
-* ENABLE_TIMELOGGING - The timelogging module will read each new TeaLeaf output file and create a CSV entry with some important data such as wallclock time and success, but please note it is currently ugly and very inflexible.
-* ENABLE_PROFILING - This enables some simple profiling for each of the functions in TeaLeaf, and prints results to output.
+* `ENABLE_TIMELOGGING` - The timelogging module will read each new TeaLeaf output file and create a CSV entry with some important data such as wallclock time and success, but please note it is currently ugly and very inflexible.
+* `ENABLE_PROFILING` - This enables some simple profiling for each of the functions in TeaLeaf, and prints results to output.
 
 ### Other Flags
 
