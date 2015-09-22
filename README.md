@@ -14,7 +14,7 @@ The `COMPILER` flag specifies which compiler suite to use, where both Intel and 
 
 The MPI implementation can be changed using the `MPI_F90` and `MPI_CPP` flags. This is currently defaulted to use Intel MPI (mpiifort and mpiicpc).
 
-The `KOKKOS_PATH` flag points to the root directory of a Kokkos installation. A full source Kokkos implementation is held locally to the application, but this can be removed and pointed to an existing install. 
+The `KOKKOS_PATH` flag points to the root of the Kokkos source directory.
 
 If compiling for CUDA, please note that there is a wrapper called `nvcc_wrapper` which lives inside kokkos/config/, and the `default_compiler` option must be changed to a valid C++ compiler. The current default for this compiler is `icpc`.
 
