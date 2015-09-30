@@ -1,6 +1,6 @@
 #TeaLeaf - Kokkos
 
-## Compling
+## Compiling
 
 This implementation has been configured with default values to simply compile with `make`.
 
