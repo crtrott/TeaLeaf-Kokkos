@@ -421,7 +421,11 @@ void ext_cg_calc_w_(
 	auto c = Chunks[*chunk-1];
 
 	CGCalcW<DEVICE> kernel(c->dims, c->w, c->p, c->kx, c->ky);
-	PROFILED_PARALLEL_REDUCE(c->fullDomain, kernel, *pw, "CG Calc W");
+#ifdef USE_TEAMS
+  PROFILED_PARALLEL_REDUCE(Kokkos::TeamPolicy<DEVICE>(c->dims.x-4,Kokkos::AUTO), kernel, *pw, "CG Calc W");
+#else
+  PROFILED_PARALLEL_REDUCE(c->fullDomain, kernel, *pw, "CG Calc W");
+#endif
 }
 
 // Entry point for calculating ur
@@ -435,7 +439,11 @@ void ext_cg_calc_ur_(
 
 	CGCalcUr<DEVICE> kernel(c->dims, c->u, c->r, c->mi, c->z, c->p, c->w,
 			*alpha, c->preconditioner);
+#ifdef USE_TEAMS
+  PROFILED_PARALLEL_REDUCE(Kokkos::TeamPolicy<DEVICE>(c->dims.x-4,Kokkos::AUTO), kernel, *rrn, "CG Calc UR");
+#else
 	PROFILED_PARALLEL_REDUCE(c->fullDomain, kernel, *rrn, "CG Calc UR");
+#endif
 }
 
 // Entry point for calculating p
@@ -447,7 +455,12 @@ void ext_cg_calc_p_(
 	auto c = Chunks[*chunk-1];
 
 	CGCalcP<DEVICE> kernel(c->dims, c->p, c->z, c->r, *beta, c->preconditioner);
+
+#ifdef USE_TEAMS
+	PROFILED_PARALLEL_FOR(Kokkos::TeamPolicy<DEVICE>(c->dims.x-4,Kokkos::AUTO), kernel, "CG Calc P");
+#else
 	PROFILED_PARALLEL_FOR(c->fullDomain, kernel, "CG Calc P");
+#endif
 }
 
 // Entry point for Chebyshev initialisation.
